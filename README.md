@@ -24,6 +24,7 @@ Ths simplified Payment Gateway project is a streamlined implementation of a paym
 - JWT + Spring Security
 - MySQL + Hibernate
 - Adyen API + String Retry
+- JUnit
 
 
 
@@ -216,9 +217,7 @@ CREATE TABLE transaction
 
 The Payment Gateway API provides endpoints for managing wallets, cards, and payment transactions. It allows users to register and log in to their wallets, add and remove cards, and perform payment transactions using the registered cards.
 
-[Postman](https://www.postman.com/descent-module-candidate-92507832/workspace/demo-starfish/collection/28698318-77d96e93-8de3-4b88-9e05-f32bab4b2689)
-
-[JSON](./docs/payment-gateway-api.json)
+[JSON](./docs/payment-gateway-api.json): import a collection json file  `./docs/payment-gateway-api.json` into postman
 
 
 
@@ -227,13 +226,13 @@ The Payment Gateway API provides endpoints for managing wallets, cards, and paym
 - `POST /auth/register`: Register a new wallet by providing an email and password.
 - `POST /auth/login`: Log in to an existing wallet using the email and password. Returns an authenticated JWT token. **This token needs to be added into authentication with Bearer in you Postman**.
 
-### Card
+### Card (need auth)
 
 - `POST /card/add`: Add a new card to the user's wallet. Requires providing card details such as number, expiry month, expiry year, holder name, and CVC.
 - `GET /card/all`: Retrieve all valid cards associated with the user's wallet.
 - `DELETE /card/batchRemove`: Remove multiple cards from the user's wallet by providing an array of card IDs.
 
-### Payment
+### Payment (need auth)
 
 - `POST /payment/cardTransaction`: Perform a payment transaction using a registered card. Requires providing the card ID, currency, and transaction value.
 - `GET /payment/allTransactions`: Retrieve all transactions associated with the user's wallet.

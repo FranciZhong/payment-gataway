@@ -12,5 +12,6 @@ public class TransactionDto {
     private String currency;
     private Long value;
     private String reference;
+    private String pspReference;
     private String status;
 }

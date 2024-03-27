@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import jakarta.annotation.Resource;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import team.starfish.paymentgateway.constant.CurrencyEnum;
 import team.starfish.paymentgateway.constant.PaymentTypeEnum;
@@ -44,7 +43,7 @@ public class TransactionService {
     private TransactionRepository transactionRepository;
 
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional
     public PaymentQueryDto register2PaymentQuery(CardTransactionReqDto transactionReq)
             throws BadRequestException {
         Optional<Card> cardOpt = cardRepository.findByCardId(transactionReq.getCardId(), true);
@@ -89,7 +88,7 @@ public class TransactionService {
         return paymentQueryDto;
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional
     public void finalizePayment(PaymentResultDto paymentResult)
             throws DataNotFoundException {
         int updatedRowCount = transactionRepository
@@ -105,14 +104,13 @@ public class TransactionService {
         }
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional
     public void cancelByReference(String reference) {
         transactionRepository.updateStatusBy(reference,
                 TransactionStatusEnum.PENDING.getValue(),
                 TransactionStatusEnum.CANCELED.getValue());
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
     public Optional<TransactionDto> getByReference(String reference) {
         return transactionRepository.findByRef(reference)
                 .map((transaction) -> modelMapper.map(transaction, TransactionDto.class));

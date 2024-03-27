@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "77d96e93-8de3-4b88-9e05-f32bab4b2689",
+		"_postman_id": "d4a8e14e-b713-4bc2-80c5-f6b8ea482bd4",
 		"name": "payment-gateway API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28698318"
@@ -548,13 +548,13 @@
 					},
 					"response": [
 						{
-							"name": "ok",
+							"name": "pending",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"cardId\": 5,\n    \"currency\": \"USD\",\n    \"value\": 100000000000\n}",
+									"raw": "{\n    \"cardId\": 4,\n    \"currency\": \"USD\",\n    \"value\": 1000\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -572,8 +572,8 @@
 									]
 								}
 							},
-							"status": "Created",
-							"code": 201,
+							"status": "OK",
+							"code": 200,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -622,7 +622,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 26 Mar 2024 14:31:28 GMT"
+									"value": "Wed, 27 Mar 2024 07:59:21 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -634,38 +634,207 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 23,\n        \"walletId\": 4,\n        \"cardId\": 5,\n        \"platform\": \"adyen\",\n        \"type\": \"scheme\",\n        \"currency\": \"USD\",\n        \"value\": 100000000000,\n        \"reference\": \"6cd711a6-8c30-42cc-b8ea-c2ec36c98a8d\",\n        \"payload\": null,\n        \"status\": \"pending\"\n    },\n    \"message\": null\n}"
+							"body": "{\n    \"success\": false,\n    \"data\": {\n        \"id\": 10,\n        \"walletId\": 3,\n        \"cardId\": 4,\n        \"platform\": \"adyen\",\n        \"type\": \"scheme\",\n        \"currency\": \"USD\",\n        \"value\": 1000,\n        \"reference\": \"26c1400c-2d9b-4a2a-9594-f49679d88f8d\",\n        \"status\": \"pending\"\n    },\n    \"message\": null\n}"
+						},
+						{
+							"name": "fail (canceled)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cardId\": 4,\n    \"currency\": \"USD\",\n    \"value\": 1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment/cardTransaction",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"payment",
+										"cardTransaction"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Mar 2024 08:07:33 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 16,\n        \"walletId\": 3,\n        \"cardId\": 4,\n        \"platform\": \"adyen\",\n        \"type\": \"scheme\",\n        \"currency\": \"USD\",\n        \"value\": 1000,\n        \"reference\": \"edc35259-0832-45e4-87d4-ef04922b7ca0\",\n        \"pspReference\": null,\n        \"status\": \"canceled\"\n    },\n    \"message\": null\n}"
+						},
+						{
+							"name": "authorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cardId\": 5,\n    \"currency\": \"USD\",\n    \"value\": 1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment/cardTransaction",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"payment",
+										"cardTransaction"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 27 Mar 2024 08:08:36 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 17,\n        \"walletId\": 3,\n        \"cardId\": 5,\n        \"platform\": \"adyen\",\n        \"type\": \"scheme\",\n        \"currency\": \"USD\",\n        \"value\": 1000,\n        \"reference\": \"4dd7da3c-412a-496a-943d-9b7976880703\",\n        \"pspReference\": \"G5PZHPTLL7MX6V65\",\n        \"status\": \"authorized\"\n    },\n    \"message\": null\n}"
 						}
 					]
 				},
 				{
 					"name": "get all transactions",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"cardId\": 5,\n    \"currency\": \"USD\",\n    \"value\": 1000\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{baseUrl}}/payment/cardTransaction",
+							"raw": "{{baseUrl}}/payment/allTransactions",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"payment",
-								"cardTransaction"
+								"allTransactions"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "transaction by card Copy",
+							"name": "ok",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -754,7 +923,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXQiOiJ7XCJpZFwiOjMsXCJlbWFpbFwiOlwiZGVtb0BnbWFpbC5jb21cIn0iLCJpYXQiOjE3MTE0MzQ5MTksImV4cCI6MTcxMTUyMTMxOX0.EM_Il_eZxUgLwiDttrAfW_SjVUD9Fhcfp0guQXsuzzQ",
+				"value": "eyJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXQiOiJ7XCJpZFwiOjMsXCJlbWFpbFwiOlwiZGVtb0BnbWFpbC5jb21cIn0iLCJpYXQiOjE3MTE1MjU3NzUsImV4cCI6MTcxMTYxMjE3NX0.O9jiHCUTO2Wuw7w4mi6qhOOzSMACiDwLLMiY6b5Mn08",
 				"type": "string"
 			}
 		]

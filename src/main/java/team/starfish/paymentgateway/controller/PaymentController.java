@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import team.starfish.paymentgateway.constant.TransactionStatusEnum;
 import team.starfish.paymentgateway.dto.ApiResponseDto;
 import team.starfish.paymentgateway.dto.auth.WalletDto;
 import team.starfish.paymentgateway.dto.auth.WalletUserDetails;
@@ -50,6 +51,10 @@ public class PaymentController {
         // 1. Register a transaction with reference number
         // Adyen is the only platform right now, where PaymentQueryDto can be extended
         PaymentQueryDto paymentQuery = transactionService.register2PaymentQuery(body);
+        TransactionDto transaction = transactionService
+                .getByReference(paymentQuery.getReference())
+                .orElseThrow(() -> new DataNotFoundException("Transaction not found with query: "
+                        + paymentQuery));
 
         try {
             // 2. Call Adyen payment API and get result status
@@ -57,6 +62,8 @@ public class PaymentController {
 
             // 3. Store the psp reference and finalize payment with status
             transactionService.finalizePayment(paymentResult);
+            transaction.setStatus(paymentResult.getStatus().getValue());
+            transaction.setPspReference(paymentResult.getPspReference());
         } catch (IOException ex) {
             log.warn("PaymentController.payByCardTransaction IOException with paymentQuery: {}",
                     paymentQuery);
@@ -66,6 +73,7 @@ public class PaymentController {
                     paymentQuery);
 
             transactionService.cancelByReference(paymentQuery.getReference());
+            transaction.setStatus(TransactionStatusEnum.CANCELED.getValue());
             log.info("PaymentController.payByCardTransaction cancel transaction with ref: {}",
                     paymentQuery.getReference());
 
@@ -74,14 +82,7 @@ public class PaymentController {
             throw ex;
         }
 
-        // TODO: 26/3/2024 commit issue
-        // 4. Fetch transaction result from db
-        TransactionDto transactionResult = transactionService
-                .getByReference(paymentQuery.getReference())
-                .orElseThrow(() -> new DataNotFoundException("Transaction not found with query: "
-                        + paymentQuery));
-
-        return HttpUtils.respond(HttpStatus.OK, true, null, transactionResult);
+        return HttpUtils.respond(HttpStatus.OK, true, null, transaction);
     }
 
     @GetMapping("/allTransactions")
@@ -96,7 +97,7 @@ public class PaymentController {
         walletDto.setEmail(walletUserDetails.getUsername());
         walletDto.setTransactions(transactions);
 
-        return HttpUtils.respond(HttpStatus.OK, true, null, walletDto);
+        return HttpUtils.respond(HttpStatus.CREATED, true, null, walletDto);
     }
 
 }
