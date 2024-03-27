@@ -140,7 +140,7 @@ In your IDEA, run with `src/main/java/team/starfish/paymentgateway/PaymentGatewa
 
 
 
-![](/Users/francis/Desktop/workshop/java/payment-gateway/docs/db.svg)
+![](./docs/db.svg)
 
 
 
