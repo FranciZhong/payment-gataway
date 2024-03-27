@@ -35,8 +35,8 @@ public class CardValidationService {
 
     public boolean isExpired(CardDto cardDto) {
         LocalDate currentDate = LocalDate.now();
-        YearMonth expiryYearMonth = YearMonth.of(Integer.parseInt(cardDto.getExpiryMonth()),
-                Integer.parseInt(cardDto.getExpiryYear()));
+        YearMonth expiryYearMonth = YearMonth.of(Integer.parseInt(cardDto.getExpiryYear()),
+                Integer.parseInt(cardDto.getExpiryMonth()));
         LocalDate expiryDate = expiryYearMonth.atEndOfMonth();
         return currentDate.isAfter(expiryDate);
     }

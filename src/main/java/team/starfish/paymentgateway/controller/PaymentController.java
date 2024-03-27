@@ -81,7 +81,7 @@ public class PaymentController {
                 .orElseThrow(() -> new DataNotFoundException("Transaction not found with query: "
                         + paymentQuery));
 
-        return HttpUtils.respond(HttpStatus.CREATED, true, null, transactionResult);
+        return HttpUtils.respond(HttpStatus.OK, true, null, transactionResult);
     }
 
     @GetMapping("/allTransactions")
@@ -96,7 +96,7 @@ public class PaymentController {
         walletDto.setEmail(walletUserDetails.getUsername());
         walletDto.setTransactions(transactions);
 
-        return HttpUtils.respond(HttpStatus.CREATED, true, null, walletDto);
+        return HttpUtils.respond(HttpStatus.OK, true, null, walletDto);
     }
 
 }

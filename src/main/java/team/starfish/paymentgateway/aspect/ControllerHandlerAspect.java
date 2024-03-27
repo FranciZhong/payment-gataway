@@ -12,6 +12,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import team.starfish.paymentgateway.error.*;
 import team.starfish.paymentgateway.utils.HttpUtils;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -56,7 +57,7 @@ public class ControllerHandlerAspect {
             log.warn("[{}] {}?{} - {}({}) - response: {}",
                     requestMethod, requestURL, queryString, methodName, args, response, ex);
             return response;
-        } catch (ExternalApiException ex) {
+        } catch (ExternalApiException | IOException ex) {
             Object response = HttpUtils.respond(HttpStatus.BAD_GATEWAY, false, ex.getMessage());
             log.warn("[{}] {}?{} - {}({}) - response: {}",
                     requestMethod, requestURL, queryString, methodName, args, response, ex);

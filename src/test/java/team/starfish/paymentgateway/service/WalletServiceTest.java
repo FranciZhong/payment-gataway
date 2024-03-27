@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import team.starfish.paymentgateway.dto.auth.WalletRawDto;
+import team.starfish.paymentgateway.error.DuplicatedDataException;
 
 @SpringBootTest
 public class WalletServiceTest {
@@ -18,7 +18,7 @@ public class WalletServiceTest {
         WalletRawDto walletRawDto = new WalletRawDto();
         walletRawDto.setEmail("admin@example.com");
         walletRawDto.setPassword("password");
-        Assertions.assertThrows(DataIntegrityViolationException.class,
+        Assertions.assertThrows(DuplicatedDataException.class,
                 () -> walletService.registerWallet(walletRawDto));
     }
 

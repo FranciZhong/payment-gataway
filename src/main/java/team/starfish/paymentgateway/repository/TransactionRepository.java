@@ -33,6 +33,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
                         @Param("previousStatus") String previousStatus,
                         @Param("status") String status);
 
-    @Query(value = "SELECT * FROM transaction WHERE wallet_id = :walletId", nativeQuery = true)
+    @Query(value = "SELECT * FROM transaction WHERE wallet_id = :walletId ORDER BY created_at DESC ",
+            nativeQuery = true)
     List<Transaction> findByWalletId(@Param("walletId") Long walletId);
 }

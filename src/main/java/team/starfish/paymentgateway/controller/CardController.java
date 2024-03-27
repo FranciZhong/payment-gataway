@@ -74,7 +74,7 @@ public class CardController {
                 .collect(Collectors.toList());
         walletDto.setCards(cards);
 
-        return HttpUtils.respond(HttpStatus.CREATED, true, null, walletDto);
+        return HttpUtils.respond(HttpStatus.OK, true, null, walletDto);
     }
 
     @DeleteMapping("/batchRemove")
@@ -85,6 +85,6 @@ public class CardController {
 
         cardService.removeCards(walletUserDetails.getWalletId(), body.getCardIds());
 
-        return HttpUtils.respond(HttpStatus.CREATED, true, "Selected cards are removed");
+        return HttpUtils.respond(HttpStatus.OK, true, "Selected cards are removed");
     }
 }

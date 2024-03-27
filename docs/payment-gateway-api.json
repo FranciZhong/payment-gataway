@@ -1,0 +1,791 @@
+{
+	"info": {
+		"_postman_id": "77d96e93-8de3-4b88-9e05-f32bab4b2689",
+		"name": "payment-gateway API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28698318"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"demo@gmail.com\",\n    \"password\": \"demoPassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"demo@gmail.com\",\n    \"password\": \"demoPassword\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/wallet/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"wallet",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Mar 2024 12:43:20 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": null,\n    \"message\": \"Successfully register your new wallet.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"demo@gmail.com\",\n    \"password\": \"demoPassword\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "sucess",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"demo@gmail.com\",\n    \"password\": \"demoPassword\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 25 Mar 2024 16:19:34 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXQiOiJ7XCJpZFwiOjMsXCJlbWFpbFwiOlwiZGVtb0BnbWFpbC5jb21cIn0iLCJpYXQiOjE3MTEzODM1NzQsImV4cCI6MTcxMTQ2OTk3NH0.GfCPm4wCI7Ffq_f5yNhebMbrtFw0QS-N53PPvUmpg24\"\n    },\n    \"message\": \"Successfully login.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "card",
+			"item": [
+				{
+					"name": "add and validate a card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": \"4111111111111117\",\n    \"expiryMonth\": \"03\",\n    \"expiryYear\": \"2030\",\n    \"holderName\": \"John Smith\",\n    \"cvc\": \"737\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/card/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"card",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"number\": \"4111111111111117\",\n    \"expiryMonth\": \"03\",\n    \"expiryYear\": \"2030\",\n    \"holderName\": \"John Smith\",\n    \"cvc\": \"737\"\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/card/add",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"card",
+										"add"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 26 Mar 2024 06:55:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 6,\n        \"walletId\": 4,\n        \"number\": \"4111111111111117\",\n        \"expiryMonth\": \"03\",\n        \"expiryYear\": \"2030\",\n        \"holderName\": \"John Smith\",\n        \"cvc\": \"737\"\n    },\n    \"message\": \"Successfully add this card to your wallet.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get all valid cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/card/all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"card",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/card/all",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"card",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 26 Mar 2024 06:55:17 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 4,\n        \"email\": \"demo@gmail.com\",\n        \"cards\": [\n            {\n                \"id\": 5,\n                \"walletId\": 4,\n                \"number\": \"4111111111111111\",\n                \"expiryMonth\": \"03\",\n                \"expiryYear\": \"2030\",\n                \"holderName\": \"John Smith\",\n                \"cvc\": \"737\"\n            },\n            {\n                \"id\": 6,\n                \"walletId\": 4,\n                \"number\": \"4111111111111117\",\n                \"expiryMonth\": \"03\",\n                \"expiryYear\": \"2030\",\n                \"holderName\": \"John Smith\",\n                \"cvc\": \"737\"\n            }\n        ]\n    },\n    \"message\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "remove cards by ids",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cardIds\": [\n        3,\n        4\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/card/batchRemove",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"card",
+								"batchRemove"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cardIds\": [\n        3,\n        4\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/card/batchRemove",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"card",
+										"batchRemove"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 26 Mar 2024 06:54:15 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": null,\n    \"message\": \"Selected cards are removed\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "transaction by card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cardId\": 5,\n    \"currency\": \"USD\",\n    \"value\": 1000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payment/cardTransaction",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payment",
+								"cardTransaction"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "ok",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cardId\": 5,\n    \"currency\": \"USD\",\n    \"value\": 100000000000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/payment/cardTransaction",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"payment",
+										"cardTransaction"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 26 Mar 2024 14:31:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 23,\n        \"walletId\": 4,\n        \"cardId\": 5,\n        \"platform\": \"adyen\",\n        \"type\": \"scheme\",\n        \"currency\": \"USD\",\n        \"value\": 100000000000,\n        \"reference\": \"6cd711a6-8c30-42cc-b8ea-c2ec36c98a8d\",\n        \"payload\": null,\n        \"status\": \"pending\"\n    },\n    \"message\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "get all transactions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cardId\": 5,\n    \"currency\": \"USD\",\n    \"value\": 1000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/payment/cardTransaction",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"payment",
+								"cardTransaction"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "transaction by card Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/payment/allTransactions",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"payment",
+										"allTransactions"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 26 Mar 2024 15:23:24 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"id\": 4,\n        \"email\": \"demo@gmail.com\",\n        \"cards\": null,\n        \"transactions\": [\n            {\n                \"id\": 1,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"2cff627e-5ec1-400c-8f48-5c7415117ab5\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 2,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"a353702d-99d8-4639-8c43-e17459423743\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 3,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"d2444ee0-f319-4f3f-80e3-0cf966aece33\",\n                \"status\": \"pending\"\n            },\n            {\n                \"id\": 4,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"9bbde5c5-1c46-4961-bcd3-8815bd0aae54\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 5,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"cfc18a9c-e569-4d7f-91c9-36feb14230d1\",\n                \"status\": \"declined\"\n            },\n            {\n                \"id\": 6,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"d2fc156a-8bac-4f0e-8c5b-4ca982fe24ee\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 7,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"9ced3323-084c-48b9-88c5-fac8fd860743\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 8,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"54d718bd-5132-4e27-b43d-b3c11da75e0f\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 9,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"d7c28269-740f-470f-951e-7e82fa703de1\",\n                \"status\": \"pending\"\n            },\n            {\n                \"id\": 10,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"a1d45d96-0f01-4cfd-8fdd-9d48e3ab653e\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 11,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"1f7868c6-31c3-48f6-84e3-1882913e2edd\",\n                \"status\": \"pending\"\n            },\n            {\n                \"id\": 12,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"9deee5d1-7067-492c-9e52-a957f96c87d6\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 13,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"8abe9802-ad6a-4079-98a4-29ed59ca3010\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 14,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"78ab5544-c955-4685-9fe9-8dece7aa46a2\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 15,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"d9b728ae-5987-486c-a9eb-e3bb114add76\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 16,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"7aced73f-78e9-438c-b395-dba9ea24be84\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 17,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"af287df9-b893-4c1e-a63e-78f542eb42ed\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 18,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"d2c744dc-eb3e-4d08-8b2c-f8a89907cc78\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 19,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"fa24e6c2-386d-45a2-b7ee-f5b08b2b0f34\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 20,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 1000,\n                \"reference\": \"c0c8fba6-9f9e-4d4b-9b17-768176de94dd\",\n                \"status\": \"authorized\"\n            },\n            {\n                \"id\": 21,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 100000000000,\n                \"reference\": \"fc498d99-f30e-4fae-b611-71eca350f5e6\",\n                \"status\": \"canceled\"\n            },\n            {\n                \"id\": 22,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 100000000000,\n                \"reference\": \"1f9f68b8-953a-45dd-9abf-df35bc9777c1\",\n                \"status\": \"pending\"\n            },\n            {\n                \"id\": 23,\n                \"walletId\": 4,\n                \"cardId\": 5,\n                \"platform\": \"adyen\",\n                \"type\": \"scheme\",\n                \"currency\": \"USD\",\n                \"value\": 100000000000,\n                \"reference\": \"6cd711a6-8c30-42cc-b8ea-c2ec36c98a8d\",\n                \"status\": \"canceled\"\n            }\n        ]\n    },\n    \"message\": null\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiJ9.eyJ3YWxsZXQiOiJ7XCJpZFwiOjMsXCJlbWFpbFwiOlwiZGVtb0BnbWFpbC5jb21cIn0iLCJpYXQiOjE3MTE0MzQ5MTksImV4cCI6MTcxMTUyMTMxOX0.EM_Il_eZxUgLwiDttrAfW_SjVUD9Fhcfp0guQXsuzzQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8081/api",
+			"type": "string"
+		}
+	]
+}

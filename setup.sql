@@ -1,5 +1,5 @@
+# for testing, comment for prod
 DROP DATABASE IF EXISTS payment_gateway;
-
 CREATE DATABASE payment_gateway;
 
 USE payment_gateway;
