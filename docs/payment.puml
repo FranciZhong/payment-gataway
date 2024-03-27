@@ -1,0 +1,32 @@
+@startuml
+participant Client
+participant Server
+participant Database
+participant Adyen
+
+Client -> Server: Get cards in the wallet
+Server -> Database: Retrieve cards
+Server --> Client: Return cards with cardId and covered information
+
+Client -> Server: Submit a payment with cardId, currency, and amount
+Server -> Database: Register a transaction with pending status
+Server -> Adyen: Call payment API with UUID reference
+
+alt API exception
+    Adyen --> Server: API exception
+    Server -> Database: Update transaction status to cancelled
+    Server --> Client: Transaction info with cancel
+else IO exception
+    Adyen --> Server: IO exception
+    Server --> Client: Return gateway issue
+else success
+    Adyen --> Server: Payment result status
+    Server -> Database: Update transaction status with Authorized/Declined
+    Server --> Client: Transaction status (Authorized/Declined)
+end
+
+Client -> Server: Get transaction history in the wallet
+Server -> Database: Retrieve transaction history
+Server --> Client: Return transaction history
+
+@enduml

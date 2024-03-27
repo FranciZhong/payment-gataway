@@ -1,0 +1,50 @@
+@startuml
+participant Client
+participant Server
+participant Database
+participant Adyen
+
+Client -> Server: Register a wallet
+Server -> Database: Check exist and insert
+alt email exists
+    Server --> Client: Refuse
+else
+    Server --> Client: OK
+end
+
+Client -> Server: Log in with wallet password
+Server -> Database: Get card with credential
+
+alt valid with encrypted password
+  Server --> Client: Authenticated token
+else
+  Server --> Client: Refuse
+end
+
+Client -> Server: Add a new card
+Server -> Server: Validate card information
+alt invalid
+    Server -> Client: Bad request
+else
+    Server -> Adyen: Get available payment methods for the merchant with [credit, ...]
+    Adyen --> Server: Return available [brands]
+
+    Server -> Adyen: Get payment methods with card number and [brands]
+    Adyen --> Server: Return available payment methods
+
+    alt IO Exception / API Exception
+        Server --> Client: Return gateway issue
+    end
+
+    alt no available payment method
+        Server -> Client: Bad request with message
+    else
+        Server -> Database: Check exist and insert
+        alt card exists
+            Server --> Client: Refuse
+        else
+            Server --> Client: OK
+        end
+    end
+end
+@enduml
