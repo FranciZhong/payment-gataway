@@ -59,7 +59,7 @@ Ths simplified Payment Gateway project is a streamlined implementation of a paym
 
 
 
-![](/Users/francis/Desktop/workshop/java/payment-gateway/docs/payment.png)
+![](./docs/payment.png)
 
 
 
