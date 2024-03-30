@@ -2,8 +2,11 @@ package team.starfish.paymentgateway.service;
 
 import com.google.gson.Gson;
 import jakarta.annotation.Resource;
+import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import team.starfish.paymentgateway.constant.CurrencyEnum;
 import team.starfish.paymentgateway.constant.PaymentTypeEnum;
@@ -42,8 +45,11 @@ public class TransactionService {
     @Resource
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private EntityManager entityManager;
 
-    @Transactional
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public PaymentQueryDto register2PaymentQuery(CardTransactionReqDto transactionReq)
             throws BadRequestException {
         Optional<Card> cardOpt = cardRepository.findByCardId(transactionReq.getCardId(), true);
@@ -88,7 +94,7 @@ public class TransactionService {
         return paymentQueryDto;
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void finalizePayment(PaymentResultDto paymentResult)
             throws DataNotFoundException {
         int updatedRowCount = transactionRepository
@@ -104,16 +110,19 @@ public class TransactionService {
         }
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void cancelByReference(String reference) {
         transactionRepository.updateStatusBy(reference,
                 TransactionStatusEnum.PENDING.getValue(),
                 TransactionStatusEnum.CANCELED.getValue());
     }
 
-    public Optional<TransactionDto> getByReference(String reference) {
-        return transactionRepository.findByRef(reference)
-                .map((transaction) -> modelMapper.map(transaction, TransactionDto.class));
+    @Transactional(readOnly = true)
+    public TransactionDto getByReference(String reference) throws DataNotFoundException {
+        Transaction transaction = transactionRepository.findByRef(reference)
+                .orElseThrow(() -> new DataNotFoundException(""));
+        entityManager.refresh(transaction);
+        return modelMapper.map(transaction, TransactionDto.class);
     }
 
     public List<TransactionDto> getByWalletId(Long walletId) {
