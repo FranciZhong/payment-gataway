@@ -65,9 +65,58 @@ Ths simplified Payment Gateway project is a streamlined implementation of a paym
 
 ## Quick Start
 
-### Run with Docker Compose
+### Run with K8s
 
-todo
+Use Minikube for deployment demo with Kubernetes environment.
+
+```sh
+minikube start
+eval $(minikube docker-env) 
+```
+
+
+
+#### Initalize MySQL database
+
+Deploy the MySQL service within 3 replicas and volume mounted.
+
+```sh
+kubectl apply -f deploy-mysql.yml
+```
+
+Because we are using Minikube in a docker environment, we need to export the port on local machine to get access to the MySQL service in a teminal or prompt. This terminal can be close after setup.
+
+```sh
+kubectl port-forward service/payment-gateway-mysql 3306:3306
+```
+
+Then initialize the database with setup.sql file in another terminal window.
+
+```sh
+mysql -h 127.0.0.1 -P 3306 -u root -ppassword < setup.sql 
+```
+
+
+
+#### Build and start the service
+
+Build docker image with Dockerfile
+
+```sh
+docker build -t payment-gateway:0.0.1-SNAPSHOT .
+```
+
+Deploy the service based on the image built on local machine. 
+
+```sh
+kubectl apply -f deploy-app.yml
+```
+
+Then export the port 8081 mapped to the payment gateway service, if using Minikube environment.
+
+```sh
+kubectl port-forward service/payment-gateway 8081:8081 
+```
 
 
 
@@ -81,9 +130,11 @@ Start a MySQL server container
 docker run --name mysql -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql
 ```
 
-
-
 Excecute SQL seeding file `./setup.sql` .
+
+```sh
+mysql -h 127.0.0.1 -P 3306 -u root -ppassword < setup.sql
+```
 
 
 

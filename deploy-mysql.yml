@@ -1,0 +1,63 @@
+# mysql-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/mysql
+
+
+---
+
+# mysql-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-gateway-mysql
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: payment-gateway-mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: payment-gateway-mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+            - name: MYSQL_ROOT_HOST
+              value: '%'
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+
+      volumes:
+        - name: mysql-persistent-storage
+
+
+---
+
+# mysql-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-gateway-mysql
+spec:
+  selector:
+    app: payment-gateway-mysql
+  ports:
+    - port: 3306
